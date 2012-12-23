@@ -107,7 +107,7 @@ class GameOverState(State,SystemEventListener):
          
       #check for new best time
       new_best_time = False
-      if frames_elapsed < old_best_time and not new_high_score:
+      if frames_elapsed < old_best_time and click_count == old_high_score:
          new_best_time = True
          self._write_high_score(old_high_score,frames_elapsed)
          
