@@ -54,7 +54,7 @@ class GameEngine:
       
       #create model
       self.model = Model(self.system_event_manager,SCREEN_SIZE)
-      self.model.change_state(GameState(self.model))
+      self.model.change_state(GameState(self.model,FPS))
       
       #create views
       self.pygame_view = PygameView(self.system_event_manager,GAME_NAME, \

@@ -224,7 +224,7 @@ class Grid(GameObject,GameEventListener):
 
 class GameState(State,SystemEventListener,GameEventListener):
 
-   def __init__(self,model):
+   def __init__(self,model,fps):
       State.__init__(self,model)
       
       #create game event manager and register self as listener
@@ -232,6 +232,9 @@ class GameState(State,SystemEventListener,GameEventListener):
       GameEventListener.__init__(self,self.game_event_manager)
       
       self.screen_size = self.model.screen_size
+      
+      self.fps = fps
+      self.frames_elapsed = 0
       
       #set the square_size so all squares will fit in the playing field
       self.square_size = self.screen_size[0]/math.sqrt(NUM_SQUARES)
@@ -263,7 +266,12 @@ class GameState(State,SystemEventListener,GameEventListener):
          
          if self._check_win():
             self.model.change_state(GameOverState(self.model,
-                                                  self.click_count))
+                                                  self.click_count,
+                                                  self.fps,
+                                                  self.frames_elapsed))
+                                                  
+      if isinstance(event,TickEvent):
+         self.frames_elapsed+=1
             
    #--------------------------------------------------------------------------
    
